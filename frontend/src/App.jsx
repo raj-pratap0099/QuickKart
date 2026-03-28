@@ -12,6 +12,7 @@ import Contact from './pages/Contact'
 import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
 import PlaceOrder from './pages/PlaceOrder'
+import Order from './pages/Order'
 
 const App = () => {
  
@@ -64,11 +65,11 @@ const App = () => {
         element={userData ? <PlaceOrder/> : <Navigate to="/login"
          state={{from: location.pathname}} /> }/> 
 
-         {/* <Route path='/order' 
+         <Route path='/order' 
         element={userData ? <Order/> : <Navigate to="/login" 
         state={{from: location.pathname}} /> }/>
 
-        <Route path='*' element={<NotFound/>}/>  */}
+        {/* <Route path='*' element={<NotFound/>}/>   */}
 
       </Routes>
      

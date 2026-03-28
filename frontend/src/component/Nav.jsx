@@ -1,5 +1,4 @@
 
-
 import React, { useContext, useState } from 'react'
 import logo from '../assets/logo.png'
 import { IoSearchCircleOutline } from "react-icons/io5";
@@ -79,7 +78,7 @@ const Nav = () => {
             justify-center cursor-pointer' onClick={()=>setShowProfile(prev=>!prev)}>{userData?.name.slice(0,1)}</div>}
 
             <MdOutlineShoppingCart className='w-[30px] h-[30px] text-[#000000]  
-            cursor-pointer hidden md:block' />
+            cursor-pointer hidden md:block' onClick={() => navigate("/cart")} />
             
             {/* cart count */}
             <p className='absolute w-[18px] h-[18px] items-center  justify-center bg-black px-[5px] py-[2px] text-white  
