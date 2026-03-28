@@ -13,8 +13,7 @@ const UserContext = ({children}) => {
     const getCurrentUser = async () => {
       try {
 
-        let result = await axios.post(serverUrl+"/api/user/getcurrentuser",
-            {},
+        let result = await axios.get(serverUrl+"/api/user/getcurrentuser",
             {withCredentials:true}
         )
 

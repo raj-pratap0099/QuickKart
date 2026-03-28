@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Nav from '../component/Nav'
 import Sidebar from '../component/Sidebar'
 import upload from '../assets/upload image.jpg'
+import { authDataContext } from '../context/AuthContext'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Add = () => {
     
@@ -19,8 +22,49 @@ const Add = () => {
     const [sizes,setSizes] = useState([])
     // const [loading,setLoading] = useState(false)
 
-    const handleAddProduct = async (e) => {
+    let {serverUrl} = useContext(authDataContext) 
 
+    const handleAddProduct = async (e) => {
+        e.preventDefault()
+        try{
+          let formData = new FormData() 
+          formData.append("name",name)
+          formData.append("description",description)
+          formData.append("price",price)
+          formData.append("category",category)
+          formData.append("subCategory",subCategory)
+          formData.append("bestseller",bestseller)
+          formData.append("sizes",JSON.stringify(sizes))
+          formData.append("image1",image1)
+          formData.append("image2",image2)
+          formData.append("image3",image3)
+          formData.append("image4",image4)
+          
+
+          let result = await axios.post(serverUrl + "/api/product/addproduct" ,
+                       formData ,
+                       {withCredentials : true} )
+          
+          console.log(result.data) ;
+          
+          if(result.data) {
+               setName("")
+              setDescription("")
+              setImage1(false)
+              setImage2(false)
+              setImage3(false)
+              setImage4(false)
+              setPrice("")
+              setBestSeller(false)
+              setCategory("Men")
+              setSubCategory("TopWear")
+          }
+
+        }catch(error) {
+            console.log(error)
+            // setLoading(false)
+            toast.error("Add Product Failed")
+        }
     }
 
 
@@ -32,7 +76,7 @@ const Add = () => {
 
        <div className='w-[82%] h-[100%] flex items-center justify-start overflow-x-hidden absolute  right-0 bottom-[5%] '>
           
-          <form action=""  className='w-[100%] md:w-[90%] h-[100%]  mt-[70px] flex flex-col gap-[30px] py-[90px] px-[30px] md:px-[60px]'>
+         <form action="" onSubmit={handleAddProduct} className='w-[100%] md:w-[90%] h-[100%]  mt-[70px] flex flex-col gap-[30px] py-[90px] px-[30px] md:px-[60px]'>
 
               <div  className='w-[400px] h-[50px] text-[25px] md:text-[40px] text-white'>Add Product Page</div>
              
@@ -131,27 +175,53 @@ const Add = () => {
                 <div className='flex items-center justify-start gap-[15px] flex-wrap'>
                 <div className={`px-[20px] py-[7px] rounded-lg bg-slate-600 text-[18px] hover:border-[#46d1f7] 
                 border-[2px] cursor-pointer ${sizes.includes("S") ? 
-                  "bg-green-400 text-black border-[#46d1f7]" : ""}`} >
+                  "bg-green-400 text-black border-[#46d1f7]" : ""}`} 
+                   onClick={()=>setSizes(prev => prev.includes("S") ? prev.filter(item => item !== "S") : [...prev , "S"])} >
                     S
                   </div>
 
-                <div className={`px-[20px] py-[7px] rounded-lg bg-slate-600 text-[18px] hover:border-[#46d1f7] border-[2px] cursor-pointer ${sizes.includes("M") ? "bg-green-400 text-black border-[#46d1f7]" : ""}`} >M</div>
+                <div className={`px-[20px] py-[7px] rounded-lg bg-slate-600 text-[18px] hover:border-[#46d1f7] border-[2px]
+                   cursor-pointer ${sizes.includes("M") ? "bg-green-400 text-black border-[#46d1f7]" : ""}`}
+                  onClick={()=>setSizes(prev => prev.includes("M") ? prev.filter(item => item !== "M") : [...prev , "M"])}   >
+                  M
+                </div>
 
-                <div className={`px-[20px] py-[7px] rounded-lg bg-slate-600 text-[18px] hover:border-[#46d1f7] border-[2px] cursor-pointer ${sizes.includes("L") ? "bg-green-400 text-black border-[#46d1f7]" : ""}`} >L</div>
+                <div className={`px-[20px] py-[7px] rounded-lg bg-slate-600 text-[18px] hover:border-[#46d1f7] border-[2px]
+                   cursor-pointer ${sizes.includes("L") ? "bg-green-400 text-black border-[#46d1f7]" : ""}`}
+                 onClick={()=>setSizes(prev => prev.includes("L") ? prev.filter(item => item !== "L") : [...prev , "L"])}  >
+                     L
+                    </div>
 
-                <div className={`px-[20px] py-[7px] rounded-lg bg-slate-600 text-[18px] hover:border-[#46d1f7] border-[2px] cursor-pointer ${sizes.includes("XL") ? "bg-green-400 text-black border-[#46d1f7]" : ""}`} >XL</div>
+                <div className={`px-[20px] py-[7px] rounded-lg bg-slate-600 text-[18px] hover:border-[#46d1f7] border-[2px] 
+                  cursor-pointer ${sizes.includes("XL") ? "bg-green-400 text-black border-[#46d1f7]" : ""}`} 
+                 onClick={()=>setSizes(prev => prev.includes("XL") ? prev.filter(item => item !== "XL") : [...prev , "XL"])} >
+                    XL
+                  </div>
 
-                <div className={`px-[20px] py-[7px] rounded-lg bg-slate-600 text-[18px] hover:border-[#46d1f7] border-[2px] cursor-pointer ${sizes.includes("XXL") ? "bg-green-400 text-black border-[#46d1f7]" : ""}`} >
+                <div className={`px-[20px] py-[7px] rounded-lg bg-slate-600 text-[18px] hover:border-[#46d1f7] border-[2px] 
+                  cursor-pointer ${sizes.includes("XXL") ? "bg-green-400 text-black border-[#46d1f7]" : ""}`} 
+                 onClick={()=>setSizes(prev => prev.includes("XXL") ? prev.filter(item => item !== "XXL") : [...prev , "XXL"])}  >
                   XXL
                 </div>
-
-
-                </div>
- 
-                
+              </div>
 
               </div>
+
+
           </div>
+            <div className='w-[80%] flex items-center justify-start gap-[10px] mt-[20px]'>
+                <input type="checkbox" id='checkbox' className='w-[25px] h-[25px] cursor-pointer' onChange={()=>setBestSeller(prev => !prev)}/>
+                <label htmlFor="checkbox" className='text-[18px] md:text-[22px]  font-semibold'>
+                  Add to BestSeller
+                </label>
+
+            </div>
+
+          <button className='w-[140px] px-[20px] py-[20px] rounded-xl bg-[#65d8f7] flex items-center justify-center 
+              gap-[10px] text-black active:bg-slate-700 active:text-white active:border-[2px] border-white'>
+              {/* {loading ? <Loading/> : "Add Product"} */}
+              Add Product
+          </button>
 
   
        </form>

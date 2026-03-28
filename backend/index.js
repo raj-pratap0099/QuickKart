@@ -8,6 +8,7 @@ import authRoutes from "./routes/authRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
 import cors from "cors"
 import productRoutes from "./routes/productRoutes.js"
+import cartRoutes from "./routes/cartRoutes.js"
 
 dotenv.config()
 
@@ -27,6 +28,7 @@ app.use(cookieParser())
 app.use("/api/auth", authRoutes)
 app.use("/api/user" , userRoutes) 
 app.use("/api/product" , productRoutes)
+app.use("/api/cart",cartRoutes)
 
 
 

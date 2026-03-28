@@ -5,6 +5,7 @@ dotenv.config()
 
 const isAuth = async (req,res,next) => {
    try{
+        console.log("Cookies:" , req.cookies)
      let {token} = req.cookies 
 
      if(!token) {
