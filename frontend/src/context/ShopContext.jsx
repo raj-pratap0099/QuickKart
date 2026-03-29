@@ -15,6 +15,7 @@ const ShopContext = ({children}) => {
      let [showSearch ,setShowSearch] = useState(false) 
      let [cartItem , setCartItem] = useState({})
      let {serverUrl} = useContext(authDataContext)
+        let [loading , setLoading] = useState(false)
      let currency = '₹';
     let delivery_fee = 40;
 
@@ -52,20 +53,20 @@ const ShopContext = ({children}) => {
     
 
     if (userData) {
-    //   setLoading(true)
+      setLoading(true)
       try {
         let result = await axios.post(serverUrl + "/api/cart/add" ,
              {itemId,size} , {withCredentials: true})
 
         console.log(result.data)
         toast.success("Product Added")
-        // setLoading(false)
+        setLoading(false)
 
        
       }
       catch (error) {
         console.log(error)
-        // setLoading(false)
+        setLoading(false)
         toast.error("Add Cart Error")
        
       }

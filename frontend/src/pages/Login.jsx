@@ -11,6 +11,8 @@ import axios from "axios"
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../utils/Firebase.js';
 import { userDataContext } from '../context/UserContext.jsx';
+import { toast } from 'react-toastify';
+import Loading from '../component/Loading';
 
 const Login = () => {
      let [show , setShow] = useState(false)
@@ -18,12 +20,14 @@ const Login = () => {
      let {serverUrl} = useContext(authDataContext)
      let [email , setEmail] = useState("")
      let [password , setPassword] = useState("")
-
+    
      let {getCurrentUser} = useContext(userDataContext)
+       let [loading,setLoading] = useState(false)
 
      let navigate = useNavigate()
 
      const handleLogin = async (e) => {
+        setLoading(true)
          e.preventDefault() ;
         try{
           let result = await axios.post(serverUrl + "/api/auth/login",
@@ -33,10 +37,14 @@ const Login = () => {
 
           getCurrentUser()
           navigate("/")
+           toast.success("User Login Successful")
           console.log(result.data)
+          setLoading(false)
 
         } catch(error) {
             console.log(error)
+            toast.error("User Login Failed")
+            setLoading(false)
         }
      }
 
@@ -112,7 +120,7 @@ const Login = () => {
                 
 
                 <button className='w-[100%] h-[50px] bg-[#6060f5] rounded-lg flex items-center 
-                justify-center mt-[20px] text-[17px] font-semibold'>Login</button>
+                justify-center mt-[20px] text-[17px] font-semibold'>{loading? <Loading/> : "Login"}</button>
 
                 <p className='flex gap-[10px]'>You haven't any account? <span className='text-[#5555f6cf] text-[17px] 
                 font-semibold cursor-pointer' onClick={()=>navigate("/signup")}>Create New Account</span></p>

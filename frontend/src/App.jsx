@@ -13,6 +13,10 @@ import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
 import PlaceOrder from './pages/PlaceOrder'
 import Order from './pages/Order'
+import { ToastContainer } from 'react-toastify';
+import NotFound from './pages/NotFound'
+import Ai from './component/Ai'
+
 
 const App = () => {
  
@@ -21,6 +25,8 @@ const App = () => {
     
   return (
      <>
+     
+        <ToastContainer /> 
        {userData && <Nav  />}
       <Routes>
 
@@ -69,9 +75,11 @@ const App = () => {
         element={userData ? <Order/> : <Navigate to="/login" 
         state={{from: location.pathname}} /> }/>
 
-        {/* <Route path='*' element={<NotFound/>}/>   */}
+        <Route path='*' element={<NotFound/>}/>  
 
       </Routes>
+
+      <Ai/>
      
      </>
   )

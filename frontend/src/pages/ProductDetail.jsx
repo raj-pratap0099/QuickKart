@@ -4,7 +4,7 @@ import { shopDataContext } from '../context/ShopContext'
 import { FaStar } from "react-icons/fa";
 import { FaStarHalfAlt } from "react-icons/fa";
 import RelatedProduct from '../component/RelatedProduct';
-// import Loading from '../component/Loading';
+import Loading from '../component/Loading';
 
 function ProductDetail() {
     let {productId} = useParams()
@@ -102,8 +102,8 @@ function ProductDetail() {
           </div>
            <button className='text-[16px] active:bg-slate-500 cursor-pointer bg-[#495b61c9] py-[10px] px-[20px] rounded-2xl
             mt-[10px] border-[1px] border-[#80808049] text-white shadow-md shadow-black' 
-            onClick={()=>addtoCart(productData._id , size)} >Add to Cart</button>
-            {/* {loading? <Loading/> : "Add to Cart"} */}
+            onClick={()=>addtoCart(productData._id , size)} >{loading? <Loading/> : "Add to Cart"}</button>
+            
               </div>
             <div className='w-[90%] h-[2px] bg-slate-700'></div>
             <div className='w-[80%] text-[16px] text-white '>

@@ -7,7 +7,7 @@ import { authDataContext } from '../context/AuthContext'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-// import Loading from '../component/Loading'
+import Loading from '../component/Loading'
 
 
 const PlaceOrder = () => {
@@ -46,7 +46,9 @@ const PlaceOrder = () => {
         receipt: order.receipt,
       handler: async (response) => {
         console.log(response)
-        const {data} = await axios.post(serverUrl + '/api/order/verifyrazorpay',response,{withCredentials:true})
+        const {data} = await axios.post(serverUrl + '/api/order/verifyrazorpay',
+          response,{withCredentials:true})
+          
         if(data){
             navigate("/order")
             setCartItem({})
@@ -100,14 +102,14 @@ const PlaceOrder = () => {
 
             break;
 
-        //   case 'razorpay':
-        //     const resultRazorpay = await axios.post(serverUrl + "/api/order/razorpay" , orderData , {withCredentials:true})
-        //     if(resultRazorpay.data){
-        //       initPay(resultRazorpay.data)
-        //       toast.success("Order Placed")
-        //       setLoading(false)
-        //     }
-        //  break;
+          case 'razorpay':
+            const resultRazorpay = await axios.post(serverUrl + "/api/order/razorpay" , orderData , {withCredentials:true})
+            if(resultRazorpay.data){
+              initPay(resultRazorpay.data)
+              toast.success("Order Placed")
+              setLoading(false)
+            }
+         break;
 
         default:
           break;
@@ -190,8 +192,8 @@ const PlaceOrder = () => {
               <div>
                 <button type='submit' className='text-[18px] active:bg-slate-500 cursor-pointer bg-[#3bcee848] py-[10px] px-[50px]
                  rounded-2xl text-white flex items-center justify-center gap-[20px] absolute lg:right-[20%] bottom-[10%] right-[35%] border-[1px] border-[#80808049]
-                  ml-[30px] mt-[20px]' >PLACE ORDER</button>
-                  {/* {loading? <Loading/> : "PLACE ORDER"} */}
+                  ml-[30px] mt-[20px]' > {loading? <Loading/> : "PLACE ORDER"}</button>
+                 
 
               </div> 
 

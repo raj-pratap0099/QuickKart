@@ -4,7 +4,7 @@ import logo from "../assets/logo.png"
 import axios from 'axios'
 import { authDataContext } from '../context/AuthContext'
 import {adminDataContext } from '../context/AdminContext'
-
+import { toast } from 'react-toastify'
 
 const Nav = () => {
    
@@ -19,10 +19,12 @@ const Nav = () => {
                       {withCredentials : true} ) 
           
         console.log(result.data) 
+         toast.success("LogOut Successfully")
         navigate("/login")
           
      } catch(error) {
           console.log(error)
+          toast.error("LogOut Failed")
      }
   }
 
