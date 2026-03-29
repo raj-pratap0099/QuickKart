@@ -1,5 +1,5 @@
 import User from "../model/userModel.js";
-import validator from 'validator' // verify the email
+import validator from 'validator' 
 import bcrypt from "bcryptjs"
 import { genToken, genToken1 } from "../config/token.js";
 
