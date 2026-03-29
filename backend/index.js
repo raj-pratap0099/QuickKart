@@ -17,7 +17,7 @@ let PORT = process.env.PORT || 6000
 const app = express() 
 
 app.use(cors({
-     origin:["http://localhost:5173" , "http://localhost:5174"],
+     origin:["https://quickkart-frontend-cdi7.onrender.com" , "http://localhost:5174"],
      credentials:true
 }))
 
