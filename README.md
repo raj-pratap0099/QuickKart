@@ -50,7 +50,7 @@ QuickKart/
 
 ⚙️ Installation Guide
 Clone Repo
-git clone https://github.com/your-username/quickkart.git
+git clone https://github.com/raj-pratap0099/quickkart.git
 cd quickkart
 Setup Frontend
 cd frontend
