@@ -14,40 +14,13 @@ import { MdContacts } from "react-icons/md"
 import { shopDataContext } from '../context/ShopContext'
 
 const Nav = () => {
-  let { getCurrentUser, userData, setUserData } = useContext(userDataContext)
-  let { showSearch, setShowSearch, search, setSearch, getCartCount } = useContext(shopDataContext)
-  let [showProfile, setShowProfile] = useState(false)
-  let { serverUrl } = useContext(authDataContext)
-  let navigate = useNavigate()
-  let location = useLocation()
-
-<<<<<<< HEAD
-      let {getCurrentUser,userData , setUserData} = useContext(userDataContext)
+   let {getCurrentUser,userData , setUserData} = useContext(userDataContext)
       let {showSearch , setShowSearch , search ,setSearch,getCartCount} = useContext(shopDataContext)
       let [showProfile,setShowProfile] = useState(false)
       let {serverUrl} = useContext(authDataContext)
-      let navigate = useNavigate()
-=======
-  const handleLogOut = async () => {
-    try {
-      const result = await axios.get(serverUrl + "/api/auth/logOut", { withCredentials: true })
-      console.log(result.data)
-      setUserData(null)
-      navigate("/login", { replace: true })
-    } catch (error) {
-      console.log(error)
-    }
-  }
->>>>>>> 4365c88 (initial commit)
+      let navigate = useNavigate() 
+      let location = useLocation()
 
-  const navLinks = [
-    { label: 'Home', path: '/' },
-    { label: 'Collections', path: '/collection' },
-    { label: 'About', path: '/about' },
-    { label: 'Contact', path: '/contact' },
-  ]
-
-<<<<<<< HEAD
       const handleLogOut = async () => {
          try {
            const result = await axios.get(serverUrl+"/api/auth/logOut" , 
@@ -63,9 +36,15 @@ const Nav = () => {
          }
       }
 
-=======
+  const navLinks = [
+    { label: 'Home', path: '/' },
+    { label: 'Collections', path: '/collection' },
+    { label: 'About', path: '/about' },
+    { label: 'Contact', path: '/contact' },
+  ]
+
+
   const isActive = (path) => location.pathname === path
->>>>>>> 4365c88 (initial commit)
 
   return (
     <div className='w-full h-[68px] fixed top-0 z-50 bg-[#080808]/96 backdrop-blur-xl
