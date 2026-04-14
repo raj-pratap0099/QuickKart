@@ -5,99 +5,80 @@ import { useNavigate } from 'react-router-dom'
 import { RiDeleteBin6Line } from "react-icons/ri";
 import CartTotal from '../component/CartTotal';
 
-
 const Cart = () => {
-   
-       const { products, currency, cartItem ,updateQuantity } = useContext(shopDataContext)
-        const [cartData, setCartData] = useState([])
-        const navigate = useNavigate()
-
+  const { products, currency, cartItem, updateQuantity } = useContext(shopDataContext)
+  const [cartData, setCartData] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     const tempData = [];
     for (const items in cartItem) {
       for (const item in cartItem[items]) {
         if (cartItem[items][item] > 0) {
-          tempData.push({
-            _id: items,
-            size: item,
-            quantity: cartItem[items][item],
-          });
+          tempData.push({ _id: items, size: item, quantity: cartItem[items][item] });
         }
       }
     }
-    setCartData(tempData); 
-
+    setCartData(tempData);
   }, [cartItem]);
 
-
-
   return (
-    <div className='w-[99vw] min-h-[100vh] p-[20px] overflow-hidden bg-gradient-to-l from-[#141414] to-[#0c2025] '>
-      <div className='h-[8%] w-[100%] text-center mt-[80px]'>
-        <Title text1={'YOUR'} text2={'CART'} />
+    <div className='w-full min-h-[100vh] bg-[#0a0a0a] pb-24 md:pb-10'>
+      <div className='w-full max-w-[1200px] mx-auto px-6 lg:px-8 pt-24'>
+
+      <div className='mb-8'>
+        <Title text1={'YOUR'} text2={'CART'}/>
       </div>
 
-      <div className='w-[100%] h-[92%] flex flex-wrap gap-[20px]'>
-        {
-         cartData.map((item,index)=>{
-             const productData = products.find((product) => product._id === item._id);
-            
-             return (
-              <div key={index} className='w-[100%] h-[10%] border-t border-b  '>
+      <div className='w-full flex flex-col gap-4'>
+        {cartData.map((item, index) => {
+          const productData = products.find((product) => product._id === item._id);
+          return (
+            <div key={index} className='w-full bg-white/5 border border-white/10 rounded-2xl
+            flex items-center gap-5 py-4 px-5 relative hover:border-white/20 transition-colors duration-200'>
 
-                <div className='w-[100%] h-[80%] flex items-start gap-6 bg-[#51808048]  py-[10px] px-[20px] rounded-2xl relative '>
+              <img className='w-[90px] h-[90px] rounded-xl object-cover flex-shrink-0' src={productData.image1} alt=""/>
 
-                    <img className='w-[100px] h-[100px] rounded-md ' src={productData.image1} alt="" />
-
-                    <div className='flex items-start justify-center flex-col gap-[10px]'>
-
-                    <p className='md:text-[25px] text-[20px] text-[#f3f9fc]'>{productData.name}</p>
-
-                    <div className='flex items-center   gap-[20px]'>
-
-                      <p className='text-[20px] text-[#aaf4e7]'>{currency} {productData.price}</p>
-                      <p className='w-[40px] h-[40px] text-[16px] text-[white] 
-                      bg-[#518080b4] rounded-md mt-[5px] flex items-center justify-center
-                       border-[1px] border-[#9ff9f9]'>{item.size}</p>
-
+              <div className='flex flex-col gap-2 flex-1'>
+                <p className='md:text-[18px] text-[15px] text-white font-medium'>{productData.name}</p>
+                <div className='flex items-center gap-4'>
+                  <p className='text-orange-400 font-semibold text-[15px]'>{currency} {productData.price}</p>
+                  <span className='px-3 py-1 text-[12px] text-white/70 bg-white/10 border border-white/20 rounded-full'>
+                    {item.size}
+                  </span>
                 </div>
-                </div>
-
-                <input type="number" min={1} defaultValue={item.quantity}
-                 className=' md:max-w-20 max-w-10 md:px-2 md:py-2 py-[5px] px-[10px] text-[white] 
-                 text-[18px] font-semibold bg-[#518080b4] absolute md:top-[40%] top-[46%] left-[75%] md:left-[50%] border-[1px] border-[#9ff9f9] rounded-md '
-                  onChange={(e)=> (e.target.value === ' ' || e.target.value === '0') ? 
-                  null  :  updateQuantity(item._id,item.size,Number(e.target.value))} />
-
-                <RiDeleteBin6Line  className='text-[#9ff9f9] w-[25px] h-[25px] absolute top-[50%] md:top-[40%] md:right-[5%] right-1' 
-                onClick={()=>updateQuantity(item._id,item.size,0)}/>
-
-                </div>
- 
               </div>
-             )
-         })
-        }
+
+              <input type="number" min={1} defaultValue={item.quantity}
+                className='w-[70px] h-[40px] text-center text-white text-[15px] font-semibold
+                bg-white/10 border border-white/20 rounded-lg outline-none focus:border-orange-400
+                transition-colors duration-200'
+                onChange={(e) => (e.target.value === ' ' || e.target.value === '0')
+                  ? null : updateQuantity(item._id, item.size, Number(e.target.value))}/>
+
+              <RiDeleteBin6Line
+                className='text-white/40 hover:text-red-400 w-[22px] h-[22px] cursor-pointer transition-colors duration-200 flex-shrink-0'
+                onClick={() => updateQuantity(item._id, item.size, 0)}/>
+
+            </div>
+          )
+        })}
       </div>
 
-      <div className='flex justify-start items-end my-20'>
-        <div className='w-full sm:w-[450px]'>
-            <CartTotal/>
-            <button className='text-[18px] hover:bg-slate-500 cursor-pointer bg-[#51808048] py-[10px] px-[50px] 
-            rounded-2xl text-white flex items-center justify-center gap-[20px]  border-[1px] border-[#80808049]
-             ml-[30px] mt-[20px]' onClick={()=>{
-                if (cartData.length > 0) {
-                      navigate("/placeorder");
-                } else {
-                console.log("Your cart is empty!");
-                }
-           }}>
-               PROCEED TO CHECKOUT
-            </button>
+      <div className='flex justify-start items-end mt-12 mb-4'>
+        <div className='w-full sm:w-[420px]'>
+          <CartTotal/>
+          <button
+            className='mt-5 ml-1 px-8 py-3 bg-orange-500 hover:bg-orange-400 active:scale-95
+            text-white font-semibold text-[15px] rounded-full shadow-lg shadow-orange-500/30
+            transition-all duration-200'
+            onClick={() => { if (cartData.length > 0) navigate("/placeorder") }}>
+            Proceed to Checkout →
+          </button>
         </div>
       </div>
-      
+
+      </div>
     </div>
   )
 }

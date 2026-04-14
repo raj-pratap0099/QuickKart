@@ -1,36 +1,43 @@
 import React from 'react'
 
 const NewLetterBox = () => {
-
-    const handleSubmit = ()=>{
-        e.preventDefault()
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
 
   return (
-     <div className='w-[100%] h-[40vh]  
-     bg-gradient-to-l from-[#141414] to-[#0c2025] flex items-center justify-start gap-[10px] flex-col'>
+    <section className='w-full py-16 md:py-20 bg-[#0a0a0a] border-t border-white/[0.06]'>
+      <div className='w-full max-w-[1200px] mx-auto px-6 lg:px-8'>
 
-      <p className='md:text-[30px] text-[20px] text-[#a5faf7] 
-      font-semibold px-[20px]'>Subscribe now & get 20% off</p>
-      <p className='md:text-[18px] text-[14px] text-center text-blue-100 
-      font-semibold px-[20px]'>Subscribe now and enjoy exclusive savings, 
-      special deals, and early access to new collections.</p>
+        <div className='flex flex-col items-center text-center gap-3 mb-8'>
+          <p className='text-[20px] md:text-[26px] text-white font-bold tracking-tight'>
+            Subscribe & get <span className='text-orange-400'>20% off</span>
+          </p>
+          <p className='text-[13px] text-white/45 max-w-[380px] leading-relaxed'>
+            Exclusive savings, special deals, and early access to new collections.
+          </p>
+        </div>
 
-      <form action="" onSubmit={handleSubmit} className='w-[100%] h-[30%] md:h-[50%] flex 
-      items-center justify-center mt-[20px] gap-[20px] px-[20px]'>
+        <form onSubmit={handleSubmit}
+          className='flex flex-col sm:flex-row items-center justify-center gap-3 w-full'>
+          <input
+            type="text"
+            placeholder='Enter your email address'
+            className='w-full sm:w-[340px] h-[44px] bg-white/[0.07] border border-white/15
+            rounded-full px-5 text-white placeholder:text-white/30 text-[13px]
+            outline-none focus:border-orange-400/50 transition-colors duration-200'
+            required/>
+          <button type='submit'
+            className='w-full sm:w-auto h-[44px] px-7 bg-orange-500 hover:bg-orange-400
+            active:scale-[0.97] text-white font-semibold text-[13px] rounded-full
+            shadow-md shadow-orange-500/25 hover:shadow-lg hover:shadow-orange-500/35
+            transition-all duration-300 whitespace-nowrap'>
+            Subscribe
+          </button>
+        </form>
 
-        <input type="text" placeholder='Enter Your Email' 
-        className='placeholder:text-[black] bg-slate-300 w-[600px]
-         max-w-[60%] h-[40px]  px-[20px] rounded-lg shadow-sm shadow-black' required />
-
-        <button type='submit' className='text-[15px] md:text-[16px] px-[10px] md:px-[30px] py-[12px] md:py-[10px] 
-         hover:bg-slate-500 cursor-pointer bg-[#2e3030c9]  text-white flex items-center
-          justify-center gap-[20px]  border-[1px] border-[#80808049] 
-         rounded-lg shadow-sm
-          shadow-black'>Subscribe</button>
-
-      </form>
-    </div>
+      </div>
+    </section>
   )
 }
 

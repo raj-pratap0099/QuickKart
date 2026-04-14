@@ -92,16 +92,52 @@ const Ai = () => {
     
 
   return (
-    <div className='fixed lg:bottom-[20px] md:bottom-[40px] bottom-[80px] 
-    left-[2%] ' onClick={()=>{recognition.start();
-        openingSound.play()
-        setActiveAi(true)
-    }}>
-      
-      <img src={ai} alt="" className={`w-[100px] cursor-pointer ${activeAi ? 'translate-x-[10%] translate-y-[-10%] scale-125 ' : 'translate-x-[0] translate-y-[0] scale-100'}
-        transition-transform` } style={{
-        filter: ` ${activeAi?"drop-shadow(0px 0px 30px #00d2fc)":"drop-shadow(0px 0px 20px black)"}`
-      }}/> 
+    <div
+      className='fixed lg:bottom-[20px] md:bottom-[40px] bottom-[80px] left-[2%] cursor-pointer'
+      onClick={() => { recognition.start(); openingSound.play(); setActiveAi(true) }}>
+
+      {/* Outer ring — pulses when active */}
+      <div className={`absolute inset-0 rounded-full transition-all duration-500
+        ${activeAi
+          ? 'scale-125 opacity-100 bg-[#00d2fc]/20 blur-[6px]'
+          : 'scale-100 opacity-0'}`}/>
+
+      {/* Rotating dashed ring */}
+      <div className={`absolute -inset-[6px] rounded-full border-2 border-dashed
+        transition-all duration-500
+        ${activeAi
+          ? 'border-[#00d2fc]/70 animate-spin [animation-duration:3s]'
+          : 'border-white/10'}`}/>
+
+      {/* Solid ring */}
+      <div className={`absolute -inset-[3px] rounded-full border transition-all duration-300
+        ${activeAi ? 'border-[#00d2fc]/60' : 'border-white/15'}`}/>
+
+      {/* Circular image container */}
+      <div className={`relative w-[72px] h-[72px] rounded-full overflow-hidden
+        transition-all duration-300 ease-out
+        ${activeAi
+          ? 'scale-110 shadow-[0_0_24px_6px_rgba(0,210,252,0.55)]'
+          : 'scale-100 shadow-[0_0_12px_2px_rgba(0,0,0,0.6)] hover:shadow-[0_0_18px_4px_rgba(0,210,252,0.3)] hover:scale-105'}`}>
+
+        {/* Gradient border effect inside */}
+        <div className='absolute inset-0 rounded-full bg-gradient-to-br from-[#00d2fc]/30 to-transparent z-10 pointer-events-none'/>
+
+        <img
+          src={ai} alt="AI Assistant"
+          className='w-full h-full object-cover rounded-full'
+        />
+      </div>
+
+      {/* Active label */}
+      {activeAi && (
+        <div className='absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap
+        bg-[#00d2fc]/15 border border-[#00d2fc]/30 backdrop-blur-sm
+        text-[#00d2fc] text-[10px] font-semibold tracking-wide
+        px-2.5 py-0.5 rounded-full'>
+          Listening...
+        </div>
+      )}
 
     </div>
   )

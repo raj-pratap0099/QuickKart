@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-
 import Logo from '../assets/logo.png'
 import google from '../assets/google.png'
 import { IoEyeOutline } from "react-icons/io5";
@@ -14,127 +13,128 @@ import { userDataContext } from '../context/UserContext.jsx';
 import { toast } from 'react-toastify';
 import Loading from '../component/Loading';
 
-
 const Registration = () => {
-  
-     let [show , setShow] = useState(false)
-     let {serverUrl} = useContext(authDataContext)
-     let [name , setName] = useState("") 
-     let [email , setEmail] = useState("")
-     let [password , setPassword] = useState("")
-     let [loading,setLoading] = useState(false)
+  let [show, setShow] = useState(false)
+  let {serverUrl} = useContext(authDataContext)
+  let [name, setName] = useState("")
+  let [email, setEmail] = useState("")
+  let [password, setPassword] = useState("")
+  let [loading, setLoading] = useState(false)
+  let {getCurrentUser} = useContext(userDataContext)
+  let navigate = useNavigate()
 
+  const handleSignup = async (e) => {
+    setLoading(true)
+    e.preventDefault()
+    try {
+      const result = await axios.post(serverUrl + '/api/auth/registration',
+        { name, email, password },
+        { withCredentials: true }
+      )
+      getCurrentUser()
+      navigate("/")
+      toast.success("User Registration Successful")
+      console.log(result.data)
+      setLoading(false)
+    } catch(error) {
+      console.log(error)
+      toast.error("User Registration Failed")
+    }
+  }
 
-     let {getCurrentUser} = useContext(userDataContext)
+  const googleSignup = async () => {
+    try {
+      const response = await signInWithPopup(auth, provider)
+      let user = response.user
+      let name = user.displayName
+      let email = user.email
+      const result = await axios.post(serverUrl + "/api/auth/googlelogin",
+        { name, email },
+        { withCredentials: true },
+      )
+      console.log(result.data)
+      getCurrentUser()
+      navigate("/")
+      toast.success("User Registration Successful")
+    } catch(error) {
+      console.log(error)
+      toast.error("User Registration Failed")
+    }
+  }
 
-
-     let navigate = useNavigate()
-
-     const handleSignup = async (e) =>{
-        setLoading(true)
-         e.preventDefault() ;
-        try{
-            const result = await axios.post(serverUrl + '/api/auth/registration',{
-                 name , email , password
-            },{withCredentials:true})
-
-            getCurrentUser()
-            navigate("/")
-             toast.success("User Registration Successful")
-            console.log(result.data)
-            setLoading(false)
-
-        } catch(error) {
-            console.log(error)
-            toast.error("User Registration Failed")
-        }
-     }
-
-     const googleSignup = async () => {
-        try {
-          const response = await signInWithPopup(auth , provider)
-          
-          let user = response.user 
-          let name = user.displayName 
-          let email = user.email 
-
-          const result = await axios.post(serverUrl + "/api/auth/googlelogin" , {
-             name , email }, 
-             {withCredentials:true},
-          )
-          console.log(result.data) 
-          getCurrentUser()
-          navigate("/")
-          toast.success("User Registration Successful")
-
-        } catch(error) {
-          console.log(error)
-          toast.error("User Registration Failed")
-        }
-     }
-    
   return (
-    <div className='w-[100vw] h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025] 
-    text-[white] flex flex-col items-center justify-start'>
+    <div className='w-[100vw] h-[100vh] bg-[#0a0a0a] text-white flex flex-col items-center justify-start'>
 
-      <div className='w-[100%] h-[80px] flex items-center 
-       justify-start px-[30px] gap-[10px] cursor-pointer' onClick={()=>navigate("/")}>
-         {/* Change to your own image and your websites name */}
-          <img className='w-[40px]' src={Logo} alt="" />
-          <h1 className='text-[22px] font-sans '>OneCart</h1>
-      </div> 
+      {/* Logo bar */}
+      <div className='w-full h-[70px] flex items-center justify-start px-8 gap-3 cursor-pointer border-b border-white/10'
+        onClick={() => navigate("/")}>
+        <img className='w-[32px]' src={Logo} alt="" />
+        <h1 className='text-[20px] font-bold'>Quick<span className='text-orange-400'>Cart</span></h1>
+      </div>
 
-      <div className='w-[100%] h-[100px] flex items-center justify-center flex-col gap-[10px]'>
-        <span className='text-[25px] font-semibold'>Registration Page</span>
-        <span className='text-[16px]'>Welcome to OneCart, Place your order</span>
-      </div> 
+      {/* Heading */}
+      <div className='w-full flex items-center justify-center flex-col gap-2 mt-10 mb-6'>
+        <span className='text-[26px] font-bold'>Create your account</span>
+        <span className='text-[14px] text-white/50'>Join QuickCart and start shopping</span>
+      </div>
 
-      <div className='max-w-[600px] w-[90%] h-[500px] bg-[#00000025] border-[1px] 
-      border-[#96969635] backdrop:blur-2xl rounded-lg shadow-lg 
-      flex items-center justify-center '>
+      {/* Card */}
+      <div className='max-w-[480px] w-[90%] bg-white/5 border border-white/10 rounded-2xl
+      shadow-[0_8px_40px_rgba(0,0,0,0.5)] flex items-center justify-center p-8'>
 
-        {/* form created for signUp */}
+        <form onSubmit={handleSignup} className='w-full flex flex-col items-center gap-4'>
 
-        <form action="" onSubmit={handleSignup}  className='w-[90%] h-[90%] flex flex-col 
-        items-center justify-start gap-[20px]' >
-            <div className='w-[90%] h-[50px] bg-[#42656cae] rounded-lg flex items-center 
-            justify-center gap-[10px] py-[20px] cursor-pointer' onClick={googleSignup}>
-                <img src={google}  alt="" className='w-[20px]'/> SignUp with google
-            </div>
+          {/* Google */}
+          <button type='button'
+            className='w-full h-[46px] bg-white/10 border border-white/20 rounded-full flex items-center
+            justify-center gap-3 text-[14px] text-white/80 hover:bg-white/15 transition-colors duration-200 cursor-pointer'
+            onClick={googleSignup}>
+            <img src={google} alt="" className='w-[18px]'/> Sign up with Google
+          </button>
 
-            <div className='w-[100%] h-[20px] flex items-center justify-center gap-[10px]'>
-               <div className='w-[40%] h-[1px] bg-[#96969635]'></div> 
-                OR <div className='w-[40%] h-[1px] bg-[#96969635]'></div>
-            </div>
+          <div className='w-full flex items-center gap-3 text-white/30 text-[12px]'>
+            <div className='flex-1 h-[1px] bg-white/10'/>
+            OR
+            <div className='flex-1 h-[1px] bg-white/10'/>
+          </div>
 
-            <div  className='w-[90%] h-[400px] flex flex-col items-center justify-center gap-[15px]  relative'>
+          {/* Inputs */}
+          <input type="text"
+            className='w-full h-[46px] bg-white/10 border border-white/20 rounded-full px-5
+            text-white placeholder:text-white/40 text-[14px] outline-none focus:border-orange-400 transition-colors duration-200'
+            placeholder='Username' required onChange={(e) => setName(e.target.value)} value={name}/>
 
-                <input type="text" className='w-[100%] h-[50px] border-[2px] border-[#96969635] 
-                backdrop:blur-sm rounded-lg shadow-lg bg-transparent placeholder-[#ffffffc7] px-[20px] font-semibold'
-                 placeholder='UserName' required onChange={(e)=>setName(e.target.value)} value={name}/>
+          <input type="text"
+            className='w-full h-[46px] bg-white/10 border border-white/20 rounded-full px-5
+            text-white placeholder:text-white/40 text-[14px] outline-none focus:border-orange-400 transition-colors duration-200'
+            placeholder='Email' required onChange={(e) => setEmail(e.target.value)} value={email}/>
 
-                <input type="text" className='w-[100%] h-[50px] border-[2px] border-[#96969635] 
-                backdrop:blur-sm rounded-lg shadow-lg bg-transparent placeholder-[#ffffffc7] px-[20px] font-semibold'
-               placeholder='Email' required onChange={(e)=>setEmail(e.target.value)} value={email} />
+          <div className='w-full relative'>
+            <input type={show ? "text" : "password"}
+              className='w-full h-[46px] bg-white/10 border border-white/20 rounded-full px-5 pr-12
+              text-white placeholder:text-white/40 text-[14px] outline-none focus:border-orange-400 transition-colors duration-200'
+              placeholder='Password' required onChange={(e) => setPassword(e.target.value)} value={password}/>
+            {!show
+              ? <IoEyeOutline className='w-[18px] h-[18px] cursor-pointer absolute right-4 top-[50%] -translate-y-1/2 text-white/40' onClick={() => setShow(prev => !prev)}/>
+              : <IoEye className='w-[18px] h-[18px] cursor-pointer absolute right-4 top-[50%] -translate-y-1/2 text-white/40' onClick={() => setShow(prev => !prev)}/>
+            }
+          </div>
 
-               <input type={show? "text" : "password"} className='w-[100%] h-[50px] border-[2px] border-[#96969635] 
-               backdrop:blur-sm rounded-lg shadow-lg bg-transparent placeholder-[#ffffffc7] px-[20px] font-semibold'
-               placeholder='Password' required onChange={(e)=>setPassword(e.target.value)} value={password} />
+          <button className='w-full h-[46px] bg-orange-500 hover:bg-orange-400 active:scale-95
+          rounded-full text-white font-semibold text-[15px] mt-2 transition-all duration-200
+          shadow-lg shadow-orange-500/30 flex items-center justify-center'>
+            {loading ? <Loading/> : "Create Account"}
+          </button>
 
-               {!show && <IoEyeOutline className='w-[20px] h-[20px] cursor-pointer 
-               absolute right-[5%]' onClick={()=>{setShow(prev => !prev)}}/>}
-               {show && <IoEye className='w-[20px] h-[20px] cursor-pointer
-                absolute right-[5%]' onClick={()=>setShow(prev => !prev)}/>}
-                
+          <p className='text-[13px] text-white/50'>
+            Already have an account?{' '}
+            <span className='text-orange-400 font-semibold cursor-pointer hover:text-orange-300'
+              onClick={() => navigate("/login")}>Login</span>
+          </p>
 
-                <button className='w-[100%] h-[50px] bg-[#6060f5] rounded-lg flex items-center 
-                justify-center mt-[20px] text-[17px] font-semibold'>{loading? <Loading/> :"Create Account"}</button>
-
-                <p className='flex gap-[10px]'>You have any account? <span className='text-[#5555f6cf] text-[17px] 
-                font-semibold cursor-pointer' onClick={()=>navigate("/login")}>Login</span></p>
-            </div>
         </form>
       </div>
+
     </div>
   )
 }

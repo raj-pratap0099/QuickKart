@@ -1,65 +1,71 @@
 import React from 'react'
 import logo from "../assets/logo.png"
 
-
 const Footer = () => {
   return (
-      <div className='w-[100%] md:h-[36vh] h-[21vh] mb-[77px] md:mb-[0px]'>
+    <footer className='w-full bg-[#080808] border-t border-white/[0.06] mb-[60px] md:mb-0'>
 
-        <div className='w-[100%] md:h-[30vh] h-[15vh]  md:mb-[0px] bg-[#dbfcfcec]
-         flex items-center justify-center md:px-[50px] px-[5px]'>
+      <div className='w-full max-w-[1200px] mx-auto px-6 lg:px-8 py-12 md:py-14'>
+        <div className='grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12'>
 
-            <div className='md:w-[30%] w-[35%] h-[100%] flex items-start 
-            justify-center flex-col gap-[5px]  '>
-
-                <div className='flex items-start justify-start gap-[5px] mt-[10px] md:mt-[40px]'>
-
-                    <img src={logo} alt=""  className='md:w-[40px] md:h-[40px] w-[30px] h-[30px]'/>
-                    <p className='text-[19px] md:text-[20px] text-[black] '>OneCart</p>
-            
-                </div>
-                <p className='text-[15px] text-[#1e2223]
-                 hidden md:block'>OneCart is your all-in-one online shopping destination, offering top-quality products, 
-                 unbeatable deals, and fast delivery—all backed by trusted service designed to make your life easier every day.</p>
-
-                <p className='text-[15px] text-[#1e2223] flex md:hidden'>Fast. Easy. Reliable. OneCart Shopping</p>
-
+          {/* Brand — spans full width on mobile */}
+          <div className='col-span-2 md:col-span-1 flex flex-col gap-4'>
+            <div className='flex items-center gap-2.5'>
+              <img src={logo} alt="" className='w-7 h-7 object-contain'/>
+              <span className='text-[16px] font-bold text-white'>
+                Quick<span className='text-orange-400'>Cart</span>
+              </span>
             </div>
+            <p className='text-[13px] text-white/40 leading-relaxed max-w-[260px] hidden md:block'>
+              Your all-in-one online shopping destination — quality products,
+              unbeatable deals, and fast delivery backed by trusted service.
+            </p>
+            <p className='text-[12px] text-white/40 md:hidden'>
+              Fast. Easy. Reliable.
+            </p>
+          </div>
 
-            <div className='md:w-[25%] w-[30%] h-[100%] flex items-center justify-center flex-col text-center'>
+          {/* Company */}
+          <div className='flex flex-col gap-4'>
+            <p className='text-[11px] font-semibold text-white/60 tracking-[0.15em] uppercase'>
+              Company
+            </p>
+            <ul className='flex flex-col gap-2.5'>
+              {['Home', 'About us', 'Delivery', 'Privacy Policy'].map(item => (
+                <li key={item}
+                  className='text-[13px] text-white/40 hover:text-orange-400
+                  cursor-pointer transition-colors duration-200'>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
 
-                    <div className='flex items-center justify-center gap-[5px] mt-[10px] md:mt-[40px]'>
-                        <p className='text-[19px] md:text-[20px] text-[#1e2223] font-sans '>COMPANY</p>
-
-                    </div>
-                    <ul>
-                        <li className='text-[15px] text-[#1e2223] hidden md:block cursor-pointer'>Home</li>
-                        <li className='text-[15px] text-[#1e2223] cursor-pointer '>About us</li>
-                        <li className='text-[15px] text-[#1e2223] hidden md:block cursor-pointer'>Delivery</li>
-                        <li className='text-[15px] text-[#1e2223] cursor-pointer'>Privacy Policy</li>
-                    </ul>
-                </div>
-
-                <div className='md:w-[25%] w-[40%]  h-[100%] flex items-center justify-center flex-col text-center '>
-
-                     <div className='flex items-center justify-center gap-[5px] mt-[10px] md:mt-[40px]'>
-
-                        <p className='text-[19px] md:text-[20px] text-[#1e2223] font-sans '>GET IN TOUCH</p>
-
-                    </div>
-                     <ul>
-                         <li className='text-[15px] text-[#1e2223] '>+91-8874XXXXXX</li>
-                        <li className='text-[15px] text-[#1e2223] '>contact@onecart.com</li>
-                        <li className='text-[15px] text-[#1e2223] hidden md:block'>+1-123-456-XXxX</li>
-                        <li className='text-[15px] text-[#1e2223] hidden md:block'>admin@onecart.com</li>
-                    </ul>
-                </div>
+          {/* Contact */}
+          <div className='flex flex-col gap-4'>
+            <p className='text-[11px] font-semibold text-white/60 tracking-[0.15em] uppercase'>
+              Get In Touch
+            </p>
+            <ul className='flex flex-col gap-2.5'>
+              {['+91-8874XXXXXX', 'contact@quickcart.com', '+1-123-456-XXxX', 'admin@quickcart.com'].map(item => (
+                <li key={item} className='text-[13px] text-white/40'>{item}</li>
+              ))}
+            </ul>
+          </div>
 
         </div>
-        <div className='w-[100%] h-[1px] bg-slate-400'></div>
-        <div className='w-[100%] h-[5vh] bg-[#dbfcfcec] flex items-center justify-center'>Copyright 2025@onecart.com-All Rights Reserved</div>
-      
-    </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className='border-t border-white/[0.06]'>
+        <div className='w-full max-w-[1200px] mx-auto px-6 lg:px-8 py-4 flex items-center justify-center'>
+          <p className='text-[11px] text-white/25'>
+            Copyright 2025 © quickcart.com — All Rights Reserved
+          </p>
+        </div>
+      </div>
+
+    </footer>
   )
 }
 

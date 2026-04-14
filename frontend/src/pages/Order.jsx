@@ -4,21 +4,18 @@ import { shopDataContext } from '../context/ShopContext'
 import { authDataContext } from '../context/AuthContext'
 import axios from 'axios'
 
-
 const Order = () => {
-   let [orderData,setOrderData] = useState([])
-    let {currency} = useContext(shopDataContext)
-    let {serverUrl} = useContext(authDataContext)
+  let [orderData, setOrderData] = useState([])
+  let { currency } = useContext(shopDataContext)
+  let { serverUrl } = useContext(authDataContext)
 
-    const loadOrderData = async () => {
-       try {
-      const result = await axios.post(serverUrl + '/api/order/userorder',
-        {},{withCredentials:true})
-
-      if(result.data){
+  const loadOrderData = async () => {
+    try {
+      const result = await axios.post(serverUrl + '/api/order/userorder', {}, { withCredentials: true })
+      if (result.data) {
         let allOrdersItem = []
-        result.data.map((order)=>{
-          order.items.map((item)=>{
+        result.data.map((order) => {
+          order.items.map((item) => {
             item['status'] = order.status
             item['payment'] = order.payment
             item['paymentMethod'] = order.paymentMethod
@@ -31,78 +28,65 @@ const Order = () => {
     } catch (error) {
       console.log(error)
     }
-    }
+  }
 
-    useEffect(()=>{
-        loadOrderData()
-    },[])
-
+  useEffect(() => { loadOrderData() }, [])
 
   return (
-    <div className='w-[99vw] min-h-[100vh] p-[20px] pb-[150px]  overflow-hidden bg-gradient-to-l from-[#141414] to-[#0c2025] '>
-      <div className='h-[8%] w-[100%] text-center mt-[80px]'>
-        <Title text1={'MY'} text2={'ORDER'} />
-      </div>
+    <div className='w-full min-h-[100vh] bg-[#0a0a0a] pb-24 md:pb-10'>
+      <div className='w-full max-w-[1200px] mx-auto px-6 lg:px-8 pt-24'>
 
-      <div className=' w-[100%] h-[92%] flex flex-wrap gap-[20px]'>
-        {
-         orderData.map((item,index)=>(
-            <div key={index} className='w-[100%] h-[10%] border-t border-b '>
-                <div className='w-[100%] h-[80%] flex items-start gap-6 bg-[#51808048]  py-[10px] px-[20px] rounded-2xl relative '>
-                   
-                    <img src={item.image1} alt="" className='w-[130px] h-[130px] rounded-md '/>
+        <div className='mb-8'>
+          <Title text1='MY' text2='ORDERS'/>
+        </div>
 
-                    <div className='flex items-start justify-center flex-col gap-[5px]'>
+        <div className='flex flex-col gap-4'>
+          {orderData.map((item, index) => (
+            <div key={index}
+              className='w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl
+              flex flex-col sm:flex-row items-start sm:items-center gap-5 p-5
+              hover:border-white/15 transition-colors duration-200'>
 
-                    <p className='md:text-[25px] text-[20px] text-[#f3f9fc]'>{item.name}</p>
+              {/* Image */}
+              <img src={item.image1} alt=""
+                className='w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover flex-shrink-0'/>
 
-                    <div className='flex items-center gap-[8px]   md:gap-[20px]'>
-
-                        <p className='md:text-[18px] text-[12px] text-[#aaf4e7]'>{currency} {item.price}</p>
-                      <p className='md:text-[18px] text-[12px] text-[#aaf4e7]'>Quantity: {item.quantity}</p>
-                      <p className='md:text-[18px] text-[12px] text-[#aaf4e7]'>Size: {item.size}</p>
-
-                    </div>
-
-                    <div className='flex items-center'>
-                     <p className='md:text-[18px] text-[12px] text-[#aaf4e7]'>Date: <span className='text-[#e4fbff] pl-[10px] md:text-[16px] 
-                     text-[11px]'>{new Date(item.date).toDateString()}</span></p>
-                    </div>
-
-                    <div className='flex items-center'>
-
-                      <p className='md:text-[16px] text-[12px] 
-                      text-[#aaf4e7]'>Payment Method :{item.paymentMethod}</p>
-                    
-                    </div>
-
-                    <div className='absolute md:left-[55%] md:top-[40%] right-[2%] top-[2%]  '>
-                       
-                        <div className='flex items-center gap-[5px]'>
-                       
-                        <p className='min-w-2 h-2 rounded-full bg-green-500'></p> 
-                        <p className='md:text-[17px] text-[10px] text-[#f3f9fc]'>{item.status}</p>
-
-                    </div>
-
-                    </div>
-
-                     <div className='absolute md:right-[5%] right-[1%] md:top-[40%] top-[70%]'>
-
-                    <button className='md:px-[15px] px-[5px] py-[3px] md:py-[7px] rounded-md bg-[#101919] text-[#f3f9fc] 
-                        text-[12px] md:text-[16px] 
-                     cursor-pointe active:bg-slate-500'
-                      onClick={loadOrderData} >Track Order</button>
-
-                  </div>
-
-                    </div>
-                    
+              {/* Details */}
+              <div className='flex-1 flex flex-col gap-1.5'>
+                <p className='text-white font-semibold text-[15px] leading-snug'>{item.name}</p>
+                <div className='flex flex-wrap items-center gap-x-4 gap-y-1 mt-0.5'>
+                  <span className='text-orange-400 font-semibold text-[14px]'>{currency} {item.price}</span>
+                  <span className='text-white/45 text-[13px]'>Qty: {item.quantity}</span>
+                  <span className='px-2.5 py-0.5 bg-white/8 border border-white/10 rounded-full
+                  text-white/60 text-[12px]'>{item.size}</span>
                 </div>
-               
+                <div className='flex flex-wrap gap-x-4 gap-y-1 mt-1'>
+                  <span className='text-white/40 text-[12px]'>
+                    {new Date(item.date).toDateString()}
+                  </span>
+                  <span className='text-white/40 text-[12px]'>via {item.paymentMethod}</span>
+                </div>
+              </div>
+
+              {/* Status + Track */}
+              <div className='flex sm:flex-col items-center sm:items-end gap-3 flex-shrink-0'>
+                <div className='flex items-center gap-2'>
+                  <span className='w-2 h-2 rounded-full bg-green-500 flex-shrink-0'/>
+                  <span className='text-white/70 text-[13px]'>{item.status}</span>
+                </div>
+                <button
+                  onClick={loadOrderData}
+                  className='px-4 py-1.5 bg-white/[0.06] border border-white/10 rounded-lg
+                  text-white/60 hover:text-white hover:border-white/25 text-[12px] font-medium
+                  transition-colors duration-200'>
+                  Track Order
+                </button>
+              </div>
+
             </div>
-         ))
-        }
+          ))}
+        </div>
+
       </div>
     </div>
   )

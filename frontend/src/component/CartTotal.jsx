@@ -2,37 +2,34 @@ import React, { useContext } from 'react'
 import { shopDataContext } from '../context/ShopContext'
 import Title from './Title'
 
-
 const CartTotal = () => {
-
-    const {currency , delivery_fee , getCartAmount} = useContext(shopDataContext)
+  const { currency, delivery_fee, getCartAmount } = useContext(shopDataContext)
 
   return (
-      <div className='w-full lg:ml-[30px]'>
-        <div className='text-xl py-[10px]'>
-        <Title text1={'CART'} text2={'TOTALS'}/>
+    <div className='w-full'>
+      <div className='mb-4'>
+        <Title text1='CART' text2='TOTALS'/>
       </div>
-      <div className='flex flex-col gap-2 mt-2 text-sm p-[30px] border-[2px] border-[#4d8890]'>
-       <div className='flex justify-between text-white text-[18px] p-[10px]'>
-          <p >Subtotal</p>
-          <p>{currency} {getCartAmount()}.00</p>
+      <div className='bg-white/[0.04] border border-white/[0.08] rounded-2xl overflow-hidden'>
+        <div className='flex justify-between items-center px-5 py-4 text-[14px]'>
+          <span className='text-white/55'>Subtotal</span>
+          <span className='text-white font-medium'>{currency} {getCartAmount()}.00</span>
         </div>
-        <hr/>
-         <div className='flex justify-between text-white text-[18px] p-[10px]'>
-          <p>Shipping Fee</p>
-          <p>{currency} {delivery_fee}</p>
+        <div className='h-px bg-white/[0.06] mx-5'/>
+        <div className='flex justify-between items-center px-5 py-4 text-[14px]'>
+          <span className='text-white/55'>Shipping Fee</span>
+          <span className='text-white font-medium'>{currency} {delivery_fee}</span>
         </div>
-        <hr/>
-        <div className='flex justify-between text-white text-[18px] p-[10px]'>
-          <b>Total</b>
-          <b>{currency} {getCartAmount()=== 0 ? 0 :getCartAmount() + delivery_fee}</b>
+        <div className='h-px bg-white/[0.06] mx-5'/>
+        <div className='flex justify-between items-center px-5 py-4'>
+          <span className='text-white font-semibold text-[15px]'>Total</span>
+          <span className='text-orange-400 font-bold text-[15px]'>
+            {currency} {getCartAmount() === 0 ? 0 : getCartAmount() + delivery_fee}
+          </span>
         </div>
-
       </div>
-      
     </div>
   )
 }
 
 export default CartTotal
-

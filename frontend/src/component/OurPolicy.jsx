@@ -1,48 +1,61 @@
 import React from 'react'
 import Title from './Title'
-import { RiExchangeFundsLine } from "react-icons/ri";
-import { TbRosetteDiscountCheckFilled } from "react-icons/tb";
-import { BiSupport } from "react-icons/bi";
+import { RiExchangeFundsLine } from "react-icons/ri"
+import { TbRosetteDiscountCheckFilled } from "react-icons/tb"
+import { BiSupport } from "react-icons/bi"
 
+const policies = [
+  {
+    icon: <RiExchangeFundsLine className='w-10 h-10 text-orange-400'/>,
+    title: 'Easy Exchange Policy',
+    desc: 'Exchange Made Easy – Quick, Simple, and Customer-Friendly Process.'
+  },
+  {
+    icon: <TbRosetteDiscountCheckFilled className='w-10 h-10 text-orange-400'/>,
+    title: '7 Days Return Policy',
+    desc: 'Shop with Confidence – 7 Days Easy Return Guarantee.'
+  },
+  {
+    icon: <BiSupport className='w-10 h-10 text-orange-400'/>,
+    title: 'Best Customer Support',
+    desc: 'Trusted Customer Support – Your Satisfaction Is Our Priority.'
+  }
+]
 
 const OurPolicy = () => {
   return (
-      <div className='w-[100vw] h-[100vh] md:h-[70vh] flex items-center justify-start flex-col 
-       bg-gradient-to-l from-[#141414] to-[#0c2025] gap-[50px] '>
-        <div className='h-[8%] w-[100%] text-center mt-[70px] '>
-            <Title text1={"OUR"} text2={"POLICY"}/>
-            <p className='w-[100%] m-auto text-[13px] md:text-[20px]
-             px-[10px] text-blue-100 '>
-            Customer-Friendly Policies – Committed to Your Satisfaction and Safety.</p>
+    <section className='w-full py-16 md:py-20 bg-[#0a0a0a] border-t border-white/[0.06]'>
+      <div className='w-full max-w-[1200px] mx-auto px-6 lg:px-8'>
+
+        {/* Header */}
+        <div className='flex flex-col items-center text-center mb-10'>
+          <Title text1="OUR" text2="POLICY"/>
+          <p className='text-white/40 text-[13px] mt-2 max-w-[420px] leading-relaxed'>
+            Customer-Friendly Policies – Committed to Your Satisfaction and Safety.
+          </p>
+          <div className='w-10 h-[2px] bg-orange-500/60 rounded-full mt-5'/>
         </div>
 
-      <div className='w-[100%] md:min-h-[50%] h-[20%] flex items-center justify-center flex-wrap lg:gap-[50px] gap-[80px]'>
-        <div className='w-[400px] max-w-[90%] h-[60%] flex items-center justify-center flex-col gap-[10px] '>
-        <RiExchangeFundsLine  className='md:w-[60px] w-[30px] h-[30px] md:h-[60px] text-[#90b9ff]'/>
-        <p className='font-semibold md:text-[25px] text-[19px] text-[#a5e8f7]'>Easy Exchange Policy</p>
-        <p className='font-semibold md:text-[18px] text-[12px] 
-        text-[aliceblue] text-center'>Exchange Made Easy – Quick, Simple, and Customer-Friendly Process.</p>
-
+        {/* Policy cards — equal width grid */}
+        <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6'>
+          {policies.map(({ icon, title, desc }) => (
+            <div key={title}
+              className='flex flex-col items-center text-center gap-4 px-6 py-8
+              bg-white/[0.04] border border-white/[0.08] rounded-2xl
+              hover:border-orange-400/25 hover:bg-white/[0.06]
+              transition-all duration-300'>
+              <div className='w-14 h-14 flex items-center justify-center
+              bg-orange-500/10 rounded-xl'>
+                {icon}
+              </div>
+              <p className='text-white font-semibold text-[15px] leading-snug'>{title}</p>
+              <p className='text-white/45 text-[13px] leading-relaxed'>{desc}</p>
+            </div>
+          ))}
         </div>
-        <div className='w-[400px] max-w-[90%] h-[60%] flex items-center justify-center flex-col gap-[10px] '>
-        <TbRosetteDiscountCheckFilled  className='md:w-[60px] w-[30px] h-[30px] md:h-[60px] text-[#90b9ff]'/>
-        <p className='font-semibold md:text-[25px] text-[19px] text-[#a5e8f7]'>7 Days Return Policy</p>
 
-        <p className='font-semibold md:text-[18px] text-[12px] text-[aliceblue]
-         text-center'>Shop with Confidence – 7 Days Easy Return Guarantee.</p>
-
-        </div>
-        
-        <div className='w-[400px] max-w-[90%] h-[60%] flex items-center justify-center flex-col gap-[10px] '>
-        <BiSupport  className='md:w-[60px] w-[30px] h-[30px] md:h-[60px] text-[#90b9ff]'/>
-
-        <p className='font-semibold md:text-[25px] text-[19px] text-[#a5e8f7]'>Best Customer Support</p>
-
-        <p className='font-semibold md:text-[18px] text-[12px] text-[aliceblue] text-center'>Trusted Customer Support – Your Satisfaction Is Our Priority.</p>
-
-        </div>
       </div>
-    </div>
+    </section>
   )
 }
 

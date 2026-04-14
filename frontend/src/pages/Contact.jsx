@@ -3,40 +3,46 @@ import Title from '../component/Title.jsx'
 import contact from "../assets/contact.jpg"
 import NewLetterBox from '../component/NewLetterBox.jsx'
 
-
 const Contact = () => {
   return (
-      <div className='w-[99vw] min-h-[100vh] flex items-center justify-center flex-col  bg-gradient-to-l from-[#141414] to-[#0c2025] gap-[50px] pt-[80px]'>
-        <Title  text1={'CONTACT'} text2={'US'}/>
+    <div className='w-full min-h-[100vh] bg-[#0a0a0a]'>
+      <div className='w-full max-w-[1200px] mx-auto px-6 lg:px-8 pt-24 pb-16 flex flex-col gap-16'>
 
-        <div className='w-[100%]  flex items-center justify-center flex-col lg:flex-row'>
-          <div className='lg:w-[50%] w-[100%] flex items-center justify-center '>
-            <img src={contact} alt=""  className='lg:w-[70%] w-[80%] shadow-md shadow-black rounded-sm'/>
-          </div>
-
-          <div className='lg:w-[50%] w-[80%] flex items-start justify-center gap-[20px]  flex-col mt-[20px] lg:mt-[0px]'>
-          <p className='lg:w-[80%] w-[100%] text-[white] font-bold lg:text-[18px] text-[15px]'>Our Store</p>
-          <div className='lg:w-[80%] w-[100%] text-[white] md:text-[16px] text-[13px]'>
-            <p>12345 Dholakpur Statiom</p>
-            <p>Furfuri Nagar city , state , India</p>
-          </div>
-          <div className='lg:w-[80%] w-[100%] text-[white] md:text-[16px] text-[13px]'>
-            <p>tel: +91-98765XXXX</p>
-            <p>Email: admin@onecart.com</p>
-          </div>
-          <p className='lg:w-[80%] w-[100%] text-[15px] text-[white] lg:text-[18px] 
-          mt-[10px] font-bold'>Careers at OneCart</p>
-
-          <p className='lg:w-[80%] w-[100%] text-[white] 
-          md:text-[16px] text-[13px]'>Learn more about our teams and job openings</p>
-
-          <button className='px-[30px] py-[20px] flex items-center justify-center 
-          text-[white] bg-transparent border active:bg-slate-600 rounded-md' >Explore Jobs</button>
-
-          </div>
+        <div className='flex flex-col items-center'>
+          <Title text1={'CONTACT'} text2={'US'}/>
         </div>
-        <NewLetterBox/>
-      
+
+        <div className='flex flex-col lg:flex-row gap-10 lg:gap-16 items-center'>
+
+          <div className='lg:w-[45%] w-full flex items-center justify-center'>
+            <img src={contact} alt=""
+              className='w-full max-w-[480px] rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.6)] object-cover'/>
+          </div>
+
+          <div className='lg:w-[45%] w-full flex flex-col gap-5'>
+            <p className='text-white font-bold text-[17px]'>Our Store</p>
+            <div className='text-white/60 text-[14px] leading-relaxed'>
+              <p>12345 Dholakpur Station</p>
+              <p>Furfuri Nagar city, State, India</p>
+            </div>
+            <div className='text-white/60 text-[14px] leading-relaxed'>
+              <p>Tel: +91-98765XXXX</p>
+              <p>Email: admin@quickcart.com</p>
+            </div>
+            <div className='w-12 h-[2px] bg-orange-500/70 rounded-full'/>
+            <p className='text-white font-bold text-[17px]'>Careers at QuickCart</p>
+            <p className='text-white/60 text-[14px]'>Learn more about our teams and job openings</p>
+            <button className='w-fit px-7 py-2.5 border border-orange-400/50 text-orange-400 rounded-full
+            text-[13px] font-medium hover:bg-orange-500 hover:text-white hover:border-orange-500
+            active:scale-95 transition-all duration-200'>
+              Explore Jobs
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+      <NewLetterBox/>
     </div>
   )
 }

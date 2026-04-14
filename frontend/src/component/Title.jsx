@@ -1,11 +1,14 @@
 import React from 'react'
 
-const Title = ({text1 , text2}) => {
+const Title = ({ text1, text2 }) => {
   return (
-     <div className='inline-flex gap-2 items-center text-center mb-3 text-[35px] md:text-[40px]'>
-        
-        <p className='text-blue-100'>{text1} <span className='text-[#a5faf7] '>{text2}</span></p>
-      
+    <div className='inline-flex items-baseline gap-2 mb-2'>
+      <h2 className='text-[26px] md:text-[32px] font-bold text-white/80 tracking-tight'>
+        {text1}
+      </h2>
+      <h2 className='text-[26px] md:text-[32px] font-bold text-orange-400 tracking-tight'>
+        {text2}
+      </h2>
     </div>
   )
 }
